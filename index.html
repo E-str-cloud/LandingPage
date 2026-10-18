@@ -3,28 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>E-STR · דשבורדים BI ו-AI לעסקים</title>
+<title>עוזר אוטומטי בחיפוש עבודה</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Rubik:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --white: #ffffff;
-    --cream: #fbf1e7;
-    --peach: #f5dac0;
-    --yellow: #fce592;
-    --secondary: #78a3d1;
-    --primary: #3a567d;
-    --accent: #eb8f39;
-    --dark: #3f4c5b;
-    --muted: #69737f;
-    --on-primary: #ffffff;
-    --on-accent: #3f4c5b;
-    --border: rgba(63,76,91,0.10);
-    --success: #2e7d5c;
-    --success-surface: #e7f4ee;
-    --danger: #b14a38;
-    --danger-surface: #faeae6;
+    --white: #ffffff; --cream: #fbf1e7; --peach: #f5dac0; --yellow: #fce592;
+    --secondary: #78a3d1; --primary: #3a567d; --accent: #eb8f39; --dark: #3f4c5b; --muted: #69737f;
+    --on-primary: #ffffff; --on-accent: #3f4c5b; --border: rgba(63,76,91,0.10);
+    --success: #2e7d5c; --success-surface: #e7f4ee;
+    --warning: #9c6500; --warning-surface: #fbf1dc;
+    --danger: #b14a38; --danger-surface: #faeae6;
 
     --font-sans: 'Inter', 'Rubik', system-ui, -apple-system, sans-serif;
     --text-display: 700 36px/44px var(--font-sans);
@@ -39,59 +29,46 @@
 
     --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
     --space-5: 24px; --space-6: 32px; --space-7: 40px; --space-8: 48px; --space-9: 64px;
-
-    --radius-sm: 8px; --radius-md: 10px; --radius-lg: 12px; --radius-xl: 16px;
+    --radius-sm: 8px; --radius-md: 10px; --radius-lg: 12px; --radius-xl: 16px; --radius-pill: 999px;
     --shadow-card: 0 1px 2px rgba(63,76,91,0.06), 0 1px 1px rgba(63,76,91,0.04);
+    --shadow-raised: 0 8px 24px rgba(63,76,91,0.12), 0 2px 6px rgba(63,76,91,0.08);
   }
 
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-  body {
-    margin: 0;
-    background: var(--white);
-    color: var(--dark);
-    font: var(--text-body);
-    -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width: 960px; margin: 0 auto; padding: 0 var(--space-4); }
+  body { margin: 0; background: var(--white); color: var(--dark); font: var(--text-body); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 var(--space-4); }
   h1, h2, h3, p { margin: 0; }
 
-  /* Header (brand only, no navigation) */
-  .brand {
-    padding: var(--space-5) 0;
-    display: flex; align-items: center; gap: var(--space-2);
-    font: var(--text-h3); letter-spacing: 0.02em;
-  }
-  .brand svg { width: 20px; height: 20px; }
+  .brand { padding: var(--space-5) 0; display: flex; align-items: center; gap: var(--space-2); font: var(--text-h3); }
+  .brand svg { width: 20px; height: 20px; color: var(--primary); }
 
   /* Hero */
   .hero {
-    background: var(--cream);
-    border-radius: var(--radius-xl);
-    padding: var(--space-8) var(--space-5);
-    position: relative;
-    overflow: hidden;
+    background: var(--cream); border-radius: var(--radius-xl);
+    padding: var(--space-7) var(--space-5) 0;
+    display: grid; gap: var(--space-7); overflow: hidden; position: relative;
   }
-  .hero h1 { font: var(--text-h1); max-width: 620px; }
-  .hero p { font: var(--text-body-lg); color: var(--dark); margin-top: var(--space-4); max-width: 560px; }
+  .hero-text { position: relative; z-index: 1; }
+  .hero h1 { font: var(--text-h1); }
+  .hero p { font: var(--text-body-lg); margin-top: var(--space-4); max-width: 520px; }
   .hero .btn { margin-top: var(--space-6); }
-  .leaf {
-    position: absolute; inset-inline-start: auto; inset-inline-end: -24px; bottom: -24px;
-    width: 160px; height: 160px; opacity: 0.9; pointer-events: none;
+  .hero-visual { display: flex; justify-content: center; align-items: flex-end; position: relative; }
+  .hero-visual .leaf { position: absolute; width: 220px; height: 220px; bottom: 40px; inset-inline-start: 50%; transform: translateX(50%); }
+  @media (min-width: 860px) {
+    .hero { grid-template-columns: 1.1fr 0.9fr; padding: var(--space-9) var(--space-8) 0; align-items: center; }
+    .hero-text { padding-bottom: var(--space-9); }
+    .hero h1 { font: var(--text-display); }
   }
 
   /* Buttons */
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
-    min-height: 48px;
-    padding: var(--space-3) var(--space-5);
-    border-radius: var(--radius-md);
-    border: 0;
-    font: var(--text-button);
-    text-decoration: none;
-    cursor: pointer;
-    transition: opacity .15s ease, transform .15s ease, background-color .15s ease;
+    min-height: 48px; padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-md); border: 0; font: var(--text-button);
+    text-decoration: none; cursor: pointer;
+    transition: background-color .15s ease, transform .15s ease;
   }
   .btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
   .btn:active { transform: scale(0.98); }
@@ -103,59 +80,72 @@
   .btn[disabled] { opacity: 0.6; cursor: progress; }
   .btn svg { width: 18px; height: 18px; }
 
+  /* Phone mockup */
+  .phone {
+    position: relative; z-index: 1;
+    width: 300px; max-width: 100%;
+    background: var(--dark);
+    border-radius: 36px 36px 0 0;
+    padding: 10px 10px 0;
+    box-shadow: var(--shadow-raised);
+  }
+  .screen {
+    background: var(--white); border-radius: 28px 28px 0 0;
+    height: 520px; overflow: hidden; display: flex; flex-direction: column;
+    font-size: 12px;
+  }
+  .statusbar { display: flex; justify-content: space-between; padding: var(--space-3) var(--space-5) var(--space-1); font: var(--text-caption); color: var(--dark); direction: ltr; }
+  .app-head { padding: var(--space-2) var(--space-4) var(--space-3); border-bottom: 1px solid var(--border); }
+  .app-head .title { font: var(--text-h3); }
+  .app-head .sub { font: var(--text-caption); color: var(--muted); margin-top: 2px; }
+  .chips { display: flex; gap: var(--space-1); padding: var(--space-3) var(--space-4) var(--space-2); flex-wrap: nowrap; overflow: hidden; }
+  .chip { font: var(--text-caption); padding: var(--space-1) var(--space-2); border-radius: var(--radius-pill); border: 1px solid var(--border); color: var(--muted); white-space: nowrap; }
+  .chip.on { background: var(--primary); border-color: var(--primary); color: var(--on-primary); }
+  .jobs { padding: 0 var(--space-4); display: grid; gap: var(--space-2); flex: 1; overflow: hidden; }
+  .job { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: var(--space-2) var(--space-3); display: grid; gap: var(--space-1); }
+  .job-top { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); }
+  .job-role { font: 600 13px/20px var(--font-sans); color: var(--dark); direction: ltr; text-align: right; }
+  .job-co { font: var(--text-caption); color: var(--muted); }
+  .job-meta { display: flex; gap: var(--space-2); flex-wrap: wrap; font: var(--text-caption); color: var(--muted); }
+  .job-meta b { font-weight: 600; color: var(--dark); }
+  .badge { font: 600 12px/16px var(--font-sans); padding: 2px var(--space-2); border-radius: var(--radius-pill); display: inline-flex; align-items: center; gap: var(--space-1); white-space: nowrap; }
+  .badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .b-sent { background: var(--cream); color: var(--primary); }
+  .b-int { background: var(--warning-surface); color: var(--warning); }
+  .b-rel { background: #eef3f9; color: var(--primary); }
+  .b-ok { background: var(--success-surface); color: var(--success); }
+  .tabbar { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--border); padding: var(--space-2) 0 var(--space-3); margin-top: var(--space-2); }
+  .tab { display: grid; justify-items: center; gap: 2px; font: var(--text-caption); color: var(--muted); }
+  .tab svg { width: 18px; height: 18px; }
+  .tab.on { color: var(--primary); font-weight: 600; }
+  .mock-note { position: absolute; z-index: 2; bottom: var(--space-3); inset-inline-end: var(--space-3); font: var(--text-caption); color: var(--muted); background: var(--white); padding: 2px var(--space-2); border-radius: var(--radius-pill); border: 1px solid var(--border); }
+
   /* Sections */
   section.block { padding: var(--space-8) 0 0; }
   .block h2 { font: var(--text-h2); margin-bottom: var(--space-5); }
-
   .problems { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
-  .problems li {
-    display: flex; gap: var(--space-3); align-items: flex-start;
-    padding: var(--space-4);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    font: var(--text-body-lg);
-  }
+  .problems li { display: flex; gap: var(--space-3); align-items: flex-start; padding: var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-lg); font: var(--text-body-lg); }
   .problems svg { flex: none; width: 22px; height: 22px; margin-top: 2px; color: var(--secondary); }
 
-  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); grid-template-columns: 1fr; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
   @media (min-width: 720px) { .steps { grid-template-columns: repeat(3, 1fr); } }
-  .step {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-5);
-    background: var(--white);
-  }
-  .step .num {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 32px; height: 32px; border-radius: 50%;
-    background: var(--yellow); color: var(--dark);
-    font: var(--text-button);
-    margin-bottom: var(--space-3);
-  }
+  .step { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-5); }
+  .step .num { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: var(--yellow); font: var(--text-button); margin-bottom: var(--space-3); }
   .step h3 { font: var(--text-h3); margin-bottom: var(--space-2); }
   .step p { color: var(--muted); }
 
   /* Form */
   .form-section { padding: var(--space-8) 0 var(--space-9); }
-  .form-card {
-    background: var(--cream);
-    border-radius: var(--radius-xl);
-    padding: var(--space-7) var(--space-5);
-  }
+  .form-card { background: var(--cream); border-radius: var(--radius-xl); padding: var(--space-7) var(--space-5); }
   .form-card h2 { font: var(--text-h2); }
-  .form-card .lead { margin-top: var(--space-2); color: var(--dark); font: var(--text-body); }
+  .form-card .lead { margin-top: var(--space-2); }
   form { margin-top: var(--space-5); display: grid; gap: var(--space-4); max-width: 480px; }
   .field { display: grid; gap: var(--space-1); }
-  label { font: var(--text-button); color: var(--dark); }
+  label { font: var(--text-button); }
   input[type="text"], input[type="email"] {
-    width: 100%;
-    min-height: 48px;
-    padding: var(--space-3);
-    background: var(--white);
-    color: var(--dark);
-    border: 1px solid rgba(63,76,91,0.22);
-    border-radius: var(--radius-md);
-    font: var(--text-body-lg);
+    width: 100%; min-height: 48px; padding: var(--space-3);
+    background: var(--white); color: var(--dark);
+    border: 1px solid rgba(63,76,91,0.22); border-radius: var(--radius-md); font: var(--text-body-lg);
   }
   input[type="email"] { direction: ltr; text-align: right; }
   input:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-color: var(--primary); }
@@ -164,31 +154,17 @@
   .err[hidden] { display: none; }
   .err svg { width: 14px; height: 14px; flex: none; }
   .form-card .btn { width: 100%; }
-  @media (min-width: 560px) { .form-card .btn { width: auto; justify-self: start; } }
+  @media (min-width: 560px) { .form-card .btn { width: auto; justify-self: start; } .form-card { padding: var(--space-8); } }
   .note { font: var(--text-caption); color: var(--muted); }
-
-  .alert {
-    display: flex; gap: var(--space-3); align-items: flex-start;
-    padding: var(--space-4);
-    border-radius: var(--radius-lg);
-    font: var(--text-body);
-  }
+  .alert { display: flex; gap: var(--space-3); align-items: flex-start; padding: var(--space-4); border-radius: var(--radius-lg); }
   .alert svg { width: 22px; height: 22px; flex: none; margin-top: 1px; }
   .alert strong { display: block; font: var(--text-h3); margin-bottom: var(--space-1); }
+  .alert p { color: var(--dark); }
   .alert-success { background: var(--success-surface); color: var(--success); }
-  .alert-success p { color: var(--dark); }
   .alert-danger { background: var(--danger-surface); color: var(--danger); }
-  .alert-danger p { color: var(--dark); }
   .alert[hidden] { display: none; }
   .thanks { margin-top: var(--space-5); max-width: 520px; }
-
   footer { border-top: 1px solid var(--border); padding: var(--space-5) 0; font: var(--text-caption); color: var(--muted); }
-
-  @media (min-width: 720px) {
-    .hero { padding: var(--space-9) var(--space-8); }
-    .hero h1 { font: var(--text-display); }
-    .form-card { padding: var(--space-8); }
-  }
 </style>
 </head>
 <body>
@@ -198,33 +174,88 @@
   <symbol id="dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v5M12 16v.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
   <symbol id="check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m8 12.5 2.8 2.8L16 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="arrow" viewBox="0 0 24 24"><path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z M14 3v4h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
 </svg>
 
 <div class="wrap">
-  <header class="brand" aria-label="E-STR">
-    <svg style="color:var(--primary)" aria-hidden="true"><use href="#leaf"/></svg>
-    <span>E-STR</span>
+  <header class="brand">
+    <svg aria-hidden="true"><use href="#leaf"/></svg>
+    <span>עוזר אוטומטי בחיפוש עבודה</span>
   </header>
 
   <section class="hero" aria-labelledby="hero-title">
-    <h1 id="hero-title">תמונה ברורה של העסק, בדשבורד אחד שאפשר לעבוד איתו כל יום</h1>
-    <p>דשבורדים BI ושירותי AI לעסקים קטנים ובינוניים, בפרויקטים קטנים וממוקדים ובמחיר נגיש.</p>
-    <a class="btn btn-primary" href="#contact">
-      לתיאום שיחת היכרות
-      <svg aria-hidden="true"><use href="#arrow"/></svg>
-    </a>
-    <svg class="leaf" viewBox="0 0 160 160" aria-hidden="true">
-      <path d="M150 150C150 70 100 20 20 20c0 80 50 130 130 130Z" fill="var(--peach)"/>
-      <path d="M150 150 60 60" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" fill="none"/>
-    </svg>
+    <div class="hero-text">
+      <h1 id="hero-title">לדעת תמיד למי שלחתם קורות חיים, איזו גרסה, ומה הסטטוס</h1>
+      <p>המערכת אוספת משרות לפי מילות המפתח, העיר והרדיוס שהגדרתם, מציגה כל משרה פעם אחת בלבד, ומתעדת כל פנייה במקום אחד.</p>
+      <a class="btn btn-primary" href="#contact">
+        לקבלת עדכון על האפליקציה
+        <svg aria-hidden="true"><use href="#arrow"/></svg>
+      </a>
+    </div>
+
+    <div class="hero-visual">
+      <svg class="leaf" viewBox="0 0 160 160" aria-hidden="true">
+        <path d="M150 150C150 70 100 20 20 20c0 80 50 130 130 130Z" fill="var(--peach)"/>
+        <path d="M150 150 60 60" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" fill="none"/>
+      </svg>
+
+      <div class="phone" role="img" aria-label="המחשה של מסך ניהול משרות באפליקציה: רשימת משרות עם חברה, סטטוס, גרסת קורות החיים שנשלחה ותאריך הפנייה">
+        <div class="screen" aria-hidden="true">
+          <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+          <div class="app-head">
+            <div class="title">ניהול משרות</div>
+            <div class="sub">מוצגות כל המשרות פרט ל"לא רלוונטית"</div>
+          </div>
+          <div class="chips">
+            <span class="chip on">הכל</span>
+            <span class="chip">רלוונטית</span>
+            <span class="chip">הוגשה</span>
+            <span class="chip">ראיון</span>
+            <span class="chip">התקבל</span>
+          </div>
+          <div class="jobs">
+            <div class="job">
+              <div class="job-top"><span class="job-role">Senior Qlik Developer</span><span class="badge b-int">ראיון</span></div>
+              <div class="job-co">חברה א' · עדיפות גבוהה</div>
+              <div class="job-meta"><span>קו"ח: <b>גרסת BI</b></span><span>יעד: <b>ראיון</b></span></div>
+            </div>
+            <div class="job">
+              <div class="job-top"><span class="job-role">Data Analyst</span><span class="badge b-sent">הוגשה</span></div>
+              <div class="job-co">חברה ב' · עדיפות בינונית</div>
+              <div class="job-meta"><span>קו"ח: <b>גרסה כללית</b></span><span>יעד: <b>חזרה לחברה</b></span></div>
+            </div>
+            <div class="job">
+              <div class="job-top"><span class="job-role">BI Developer</span><span class="badge b-rel">רלוונטית</span></div>
+              <div class="job-co">חברה ג' · עדיפות גבוהה</div>
+              <div class="job-meta"><span>קו"ח: <b>טרם שויכה</b></span></div>
+            </div>
+            <div class="job">
+              <div class="job-top"><span class="job-role">BI Team Lead</span><span class="badge b-ok">התקבל</span></div>
+              <div class="job-co">חברה ד' · עדיפות גבוהה</div>
+              <div class="job-meta"><span>קו"ח: <b>גרסת ניהול</b></span></div>
+            </div>
+          </div>
+          <div class="tabbar">
+            <span class="tab"><svg><use href="#i-home"/></svg>בית</span>
+            <span class="tab on"><svg><use href="#i-list"/></svg>משרות</span>
+            <span class="tab"><svg><use href="#i-doc"/></svg>קו"ח</span>
+            <span class="tab"><svg><use href="#i-user"/></svg>פרופיל</span>
+          </div>
+        </div>
+      </div>
+      <span class="mock-note">נתוני דוגמה להמחשה</span>
+    </div>
   </section>
 
   <section class="block" aria-labelledby="problem-title">
     <h2 id="problem-title">מה זה פותר</h2>
     <ul class="problems">
-      <li><svg aria-hidden="true"><use href="#dot"/></svg><span>הנתונים מפוזרים בין קבצים ומערכות, ואין מקום אחד שמראה את התמונה המלאה.</span></li>
-      <li><svg aria-hidden="true"><use href="#dot"/></svg><span>דוחות נבנים ידנית, לוקחים זמן, ומגיעים כשהם כבר לא עדכניים.</span></li>
-      <li><svg aria-hidden="true"><use href="#dot"/></svg><span>החלטות יומיומיות מתקבלות לפי תחושה, ולא לפי מה שהנתונים מראים.</span></li>
+      <li><svg aria-hidden="true"><use href="#dot"/></svg><span>מעבר ידני כל יום בין גוגל, לינקדאין ואתרי קריירה של חברות, שלוקח זמן שהיה אמור ללכת להחלטות.</span></li>
+      <li><svg aria-hidden="true"><use href="#dot"/></svg><span>בלי מעקב מסודר, קל לשלוח קורות חיים פעמיים לאותה משרה.</span></li>
+      <li><svg aria-hidden="true"><use href="#dot"/></svg><span>כשחברה מתקשרת, קשה לזכור מה נשלח, איזו גרסת קורות חיים, ומתי.</span></li>
     </ul>
   </section>
 
@@ -233,26 +264,26 @@
     <ol class="steps">
       <li class="step">
         <span class="num" aria-hidden="true">1</span>
-        <h3>שיחת היכרות</h3>
-        <p>מגדירים יחד מה חשוב לעסק למדוד, ומאילו מקורות מגיעים הנתונים.</p>
+        <h3>מגדירים פעם אחת</h3>
+        <p>בפרופיל מגדירים מילות מפתח, עיר ורדיוס בק"מ, ומעלים את גרסאות קורות החיים.</p>
       </li>
       <li class="step">
         <span class="num" aria-hidden="true">2</span>
-        <h3>בניית דשבורד ממוקד</h3>
-        <p>פרויקט קטן ומוגדר, שמתמקד במדדים שבאמת משמשים לקבלת החלטות.</p>
+        <h3>לוחצים על "חיפוש משרות חדש"</h3>
+        <p>מוצגות משרות שמתאימות לפרופיל, כל אחת פעם אחת בלבד. מסמנים מה רלוונטי ומה לא.</p>
       </li>
       <li class="step">
         <span class="num" aria-hidden="true">3</span>
-        <h3>עבודה יומיומית</h3>
-        <p>הדשבורד נכנס לשגרה, ובמקום שזה מועיל מוסיפים כלי AI שחוסכים עבודה ידנית.</p>
+        <h3>עוקבים במקום אחד</h3>
+        <p>לכל משרה שנשלחה נשמרים גרסת קורות החיים, תאריך הפנייה והסטטוס, עד ראיון או קבלה.</p>
       </li>
     </ol>
   </section>
 
   <section class="form-section" id="contact" aria-labelledby="form-title">
     <div class="form-card">
-      <h2 id="form-title">רוצים לבדוק מה אפשר לבנות לעסק שלכם</h2>
-      <p class="lead">משאירים שם ומייל, וחוזרים אליכם לתיאום שיחת היכרות.</p>
+      <h2 id="form-title">רוצים לנהל את חיפוש העבודה בצורה מסודרת</h2>
+      <p class="lead">משאירים שם ומייל, ונשלח אליכם עדכון על האפליקציה.</p>
 
       <form id="leadForm" novalidate>
         <div class="field">
@@ -274,27 +305,25 @@
           </div>
         </div>
 
-        <button class="btn btn-accent" type="submit" id="submitBtn">לתיאום שיחת היכרות</button>
-        <p class="note">הפרטים משמשים רק ליצירת קשר בנוגע לפנייה.</p>
+        <button class="btn btn-accent" type="submit" id="submitBtn">לקבלת עדכון על האפליקציה</button>
+        <p class="note">הפרטים משמשים רק לשליחת עדכונים על האפליקציה.</p>
       </form>
 
       <div class="alert alert-success thanks" id="thanks" role="status" tabindex="-1" hidden>
         <svg aria-hidden="true"><use href="#check"/></svg>
         <div>
           <strong>תודה, הפרטים התקבלו</strong>
-          <p>נחזור אליכם במייל כדי לתאם שיחת היכרות קצרה.</p>
+          <p>נשלח אליכם מייל עם עדכון על האפליקציה ואיך מתחילים להשתמש בה.</p>
         </div>
       </div>
     </div>
   </section>
 </div>
 
-<footer>
-  <div class="wrap">E-STR · דשבורדים BI ושירותי AI לעסקים</div>
-</footer>
+<footer><div class="wrap">עוזר אוטומטי בחיפוש עבודה</div></footer>
 
 <script>
-  // כתובת לקבלת הפניות (לדוגמה Webhook). כל עוד היא ריקה, השליחה תיכשל ותוצג הודעת שגיאה.
+  // כתובת לקבלת הפניות (לדוגמה Webhook של n8n). כל עוד היא ריקה, השליחה תיכשל ותוצג הודעת שגיאה.
   const FORM_ENDPOINT = "";
 
   const form = document.getElementById('leadForm');
@@ -312,7 +341,6 @@
     errEl.hidden = !show;
     input.setAttribute('aria-invalid', show ? 'true' : 'false');
   }
-
   function validate() {
     const nameBad = nameInput.value.trim().length < 2;
     const emailBad = !emailRe.test(emailInput.value.trim());
@@ -322,7 +350,6 @@
     if (emailBad) { emailInput.focus(); return false; }
     return true;
   }
-
   nameInput.addEventListener('input', () => { if (!nameErr.hidden) setError(nameInput, nameErr, nameInput.value.trim().length < 2); });
   emailInput.addEventListener('input', () => { if (!emailErr.hidden) setError(emailInput, emailErr, !emailRe.test(emailInput.value.trim())); });
 
@@ -330,10 +357,8 @@
     e.preventDefault();
     sendError.hidden = true;
     if (!validate()) return;
-
     submitBtn.disabled = true;
     submitBtn.textContent = 'שולח…';
-
     try {
       if (!FORM_ENDPOINT) throw new Error('no endpoint');
       const res = await fetch(FORM_ENDPOINT, {
@@ -342,7 +367,6 @@
         body: JSON.stringify({ name: nameInput.value.trim(), email: emailInput.value.trim() })
       });
       if (!res.ok) throw new Error('status ' + res.status);
-
       form.hidden = true;
       thanks.hidden = false;
       thanks.focus();
