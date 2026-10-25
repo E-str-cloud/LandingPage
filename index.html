@@ -41,7 +41,75 @@
   .wrap { max-width: 1040px; margin: 0 auto; padding: 0 var(--space-4); }
   h1, h2, h3, p { margin: 0; }
 
-  .brand { padding: var(--space-5) 0; display: flex; align-items: center; gap: var(--space-2); font: var(--text-h3); }
+  html { scroll-padding-top: 96px; }
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    padding: var(--space-3) 0; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+    background: var(--white);
+    margin-bottom: var(--space-4);
+  }
+  .topbar::before {
+    content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%);
+    background: var(--white); border-bottom: 1px solid var(--border);
+  }
+  body { overflow-x: clip; }
+  .brand { display: flex; align-items: center; gap: var(--space-2); font: var(--text-h3); min-width: 0; }
+  .brand svg { flex: none; }
+
+  /* Accessibility widget */
+  .a11y-wrap { position: relative; flex: none; }
+  .a11y-toggle {
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+    min-height: 44px; min-width: 44px; padding: var(--space-2) var(--space-3);
+    background: var(--white); color: var(--primary);
+    border: 1px solid var(--primary); border-radius: var(--radius-md);
+    font: var(--text-button); cursor: pointer;
+  }
+  .a11y-toggle svg { width: 22px; height: 22px; }
+  .a11y-toggle:hover, .a11y-toggle[aria-expanded="true"] { background: var(--cream); }
+  .a11y-toggle:focus-visible, .a11y-btn:focus-visible, .a11y-close:focus-visible, .a11y-link:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+  @media (max-width: 420px) { .a11y-toggle-label { display: none; } .a11y-toggle { padding: var(--space-2); } }
+  .a11y-panel {
+    position: absolute; top: calc(100% + var(--space-2)); inset-inline-end: 0;
+    width: min(360px, calc(100vw - 2 * var(--space-4)));
+    max-height: calc(100vh - 96px); overflow-y: auto;
+    padding: var(--space-4);
+    background: var(--white); border: 1px solid var(--muted); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-raised);
+    display: grid; gap: var(--space-3);
+  }
+  .a11y-panel[hidden] { display: none; }
+  .a11y-panel-head { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); }
+  .a11y-panel-title { font: var(--text-h3); }
+  .a11y-close { flex: none; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; background: var(--white); border: 1px solid var(--border); border-radius: 50%; color: var(--dark); cursor: pointer; }
+  .a11y-close:hover { background: var(--cream); }
+  .a11y-close svg { width: 18px; height: 18px; }
+  .a11y-size-label { font: var(--text-button); }
+  .a11y-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+  .a11y-btn {
+    min-height: 44px; padding: var(--space-2) var(--space-3);
+    background: var(--white); color: var(--dark);
+    border: 1px solid var(--muted); border-radius: var(--radius-md);
+    font: var(--text-button); cursor: pointer; text-align: center;
+  }
+  .a11y-btn:hover { background: var(--cream); }
+  .a11y-btn[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: var(--on-primary); }
+  .a11y-btn[aria-pressed="true"]::before { content: "✓ "; }
+  .a11y-btn[disabled] { color: var(--muted); border-color: var(--border); background: var(--white); cursor: not-allowed; }
+  .a11y-reset { width: 100%; background: var(--cream); }
+  .a11y-note { font: var(--text-secondary); color: var(--dark); }
+  .a11y-link { font: var(--text-secondary); color: var(--primary); text-decoration: underline; justify-self: start; padding: var(--space-1) 0; }
+
+  /* Widget modes */
+  html.hc { --dark: #1f2833; --muted: #3f4c5b; --cream: #ffffff; --peach: #ffffff; --yellow: #ffffff; --border: rgba(31,40,51,0.6); --on-accent: #1f2833; }
+  html.hc .hero, html.hc .form-card, html.hc .step, html.hc .problems li { border: 2px solid var(--dark); }
+  html.hl a, html.hl button, html.hl input { outline: 2px dashed var(--primary) !important; outline-offset: 3px; }
+  html.hl a { text-decoration: underline !important; }
+  html.rf { --font-sans: Arial, 'Segoe UI', Tahoma, sans-serif; }
+  html.sp main *, html.sp .a11y * { letter-spacing: 0.12em !important; word-spacing: 0.16em !important; line-height: 1.6 !important; }
+  html.sp main p, html.sp .a11y p { margin-bottom: 0.5em; }
+  html.fo *:focus-visible { outline: 3px solid var(--dark) !important; outline-offset: 3px !important; box-shadow: 0 0 0 7px var(--yellow) !important; }
+  html.na *, html.na *::before, html.na *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
   .brand svg { width: 20px; height: 20px; color: var(--primary); }
 
   /* Hero */
@@ -179,6 +247,8 @@
   <symbol id="dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v5M12 16v.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
   <symbol id="check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m8 12.5 2.8 2.8L16 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="arrow" viewBox="0 0 24 24"><path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-a11y" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="6.8" r="1.4" fill="currentColor"/><path d="M7 9.5c1.6.5 3.3.8 5 .8s3.4-.3 5-.8M12 10.3v3.4M12 13.7l-2.4 4.6M12 13.7l2.4 4.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
   <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
   <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z M14 3v4h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
@@ -186,9 +256,40 @@
 </svg>
 
 <div class="wrap">
-  <header class="brand">
-    <svg aria-hidden="true"><use href="#leaf"/></svg>
-    <span>עוזר אוטומטי בחיפוש עבודה</span>
+  <header class="topbar">
+    <div class="brand">
+      <svg aria-hidden="true"><use href="#leaf"/></svg>
+      <span>עוזר אוטומטי בחיפוש עבודה</span>
+    </div>
+    <div class="a11y-wrap">
+      <button class="a11y-toggle" id="a11yToggle" type="button" aria-expanded="false" aria-controls="a11yPanel" aria-label="תפריט נגישות">
+        <svg aria-hidden="true"><use href="#i-a11y"/></svg>
+        <span class="a11y-toggle-label" aria-hidden="true">נגישות</span>
+      </button>
+
+      <div class="a11y-panel" id="a11yPanel" role="region" aria-labelledby="a11yPanelTitle" hidden>
+        <div class="a11y-panel-head">
+          <p class="a11y-panel-title" id="a11yPanelTitle">הגדרות נגישות</p>
+          <button type="button" class="a11y-close" id="a11yClose" aria-label="סגירת תפריט הנגישות">
+            <svg aria-hidden="true"><use href="#i-close"/></svg>
+          </button>
+        </div>
+        <p class="a11y-size-label">גודל הטקסט: <output id="a11yLevel" aria-live="polite" dir="ltr">100%</output></p>
+        <div class="a11y-grid">
+          <button type="button" class="a11y-btn" id="a11yDec">הקטנת טקסט</button>
+          <button type="button" class="a11y-btn" id="a11yInc">הגדלת טקסט</button>
+          <button type="button" class="a11y-btn a11y-opt" data-opt="hc" aria-pressed="false">ניגודיות גבוהה</button>
+          <button type="button" class="a11y-btn a11y-opt" data-opt="hl" aria-pressed="false">הדגשת קישורים</button>
+          <button type="button" class="a11y-btn a11y-opt" data-opt="rf" aria-pressed="false">גופן קריא</button>
+          <button type="button" class="a11y-btn a11y-opt" data-opt="sp" aria-pressed="false">ריווח טקסט</button>
+          <button type="button" class="a11y-btn a11y-opt" data-opt="fo" aria-pressed="false">מיקוד מודגש</button>
+          <button type="button" class="a11y-btn a11y-opt" data-opt="na" aria-pressed="false">עצירת אנימציות</button>
+        </div>
+        <button type="button" class="a11y-btn a11y-reset" id="a11yReset">איפוס הגדרות</button>
+        <p class="a11y-note">ההגדרות נשמרות בדפדפן הזה. התפריט נועד להקל על השימוש ונוסף להתאמות הקבועות בדף.</p>
+        <a class="a11y-link" href="#a11y-title" id="a11yStatementLink">להצהרת הנגישות</a>
+      </div>
+    </div>
   </header>
 
   <main>
@@ -392,6 +493,68 @@
       submitBtn.textContent = btnLabel;
     }
   });
+</script>
+
+<script>
+  // ווידג'ט נגישות: ההגדרות נשמרות בדפדפן של המבקר בלבד
+  (function () {
+    const KEY = 'a11y-settings';
+    const LEVELS = [0.9, 1, 1.15, 1.3, 1.5];
+    const DEFAULTS = { size: 1, hc: false, hl: false, rf: false, sp: false, fo: false, na: false };
+    const root = document.documentElement;
+    const wrap = document.querySelector('.a11y-wrap');
+    const toggle = document.getElementById('a11yToggle');
+    const panel = document.getElementById('a11yPanel');
+    const dec = document.getElementById('a11yDec');
+    const inc = document.getElementById('a11yInc');
+    const levelOut = document.getElementById('a11yLevel');
+    const opts = Array.from(document.querySelectorAll('.a11y-opt'));
+    let state = Object.assign({}, DEFAULTS);
+
+    try { const saved = JSON.parse(localStorage.getItem(KEY)); if (saved) state = Object.assign(state, saved); } catch (e) {}
+    function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+    function apply() {
+      const z = LEVELS[state.size] || 1;
+      // ההגדלה חלה על תוכן הדף, והפס העליון והתפריט נשארים בגודלם כדי שלא יחרגו מהמסך
+      document.querySelectorAll('main, section.a11y, footer').forEach(el => { el.style.zoom = z === 1 ? '' : z; });
+      levelOut.textContent = Math.round(z * 100) + '%';
+      dec.disabled = state.size === 0;
+      inc.disabled = state.size === LEVELS.length - 1;
+      opts.forEach(btn => {
+        const k = btn.dataset.opt;
+        root.classList.toggle(k, !!state[k]);
+        btn.setAttribute('aria-pressed', state[k] ? 'true' : 'false');
+      });
+      // מרווח גלילה לפי גובה הפס העליון, כדי שהוא לא יסתיר אלמנט שקיבל מיקוד
+      const bar = document.querySelector('.topbar');
+      root.style.scrollPaddingTop = Math.ceil(bar.getBoundingClientRect().height + 16) + 'px';
+    }
+
+    function open(show, returnFocus) {
+      panel.hidden = !show;
+      toggle.setAttribute('aria-expanded', show ? 'true' : 'false');
+      if (show) document.getElementById('a11yClose').focus();
+      else if (returnFocus !== false) toggle.focus();
+    }
+
+    toggle.addEventListener('click', () => open(panel.hidden));
+    document.getElementById('a11yClose').addEventListener('click', () => open(false));
+    panel.addEventListener('keydown', e => { if (e.key === 'Escape') open(false); });
+    document.addEventListener('click', e => { if (!panel.hidden && !wrap.contains(e.target)) open(false, false); });
+    dec.addEventListener('click', () => { if (state.size > 0) { state.size--; apply(); save(); } });
+    inc.addEventListener('click', () => { if (state.size < LEVELS.length - 1) { state.size++; apply(); save(); } });
+    opts.forEach(btn => btn.addEventListener('click', () => { const k = btn.dataset.opt; state[k] = !state[k]; apply(); save(); }));
+    document.getElementById('a11yReset').addEventListener('click', () => { state = Object.assign({}, DEFAULTS); apply(); save(); });
+    document.getElementById('a11yStatementLink').addEventListener('click', () => {
+      open(false, false);
+      const t = document.getElementById('a11y-title');
+      t.setAttribute('tabindex', '-1');
+      setTimeout(() => t.focus(), 0);
+    });
+
+    apply();
+  })();
 </script>
 
 <!-- Botpress webchat -->
