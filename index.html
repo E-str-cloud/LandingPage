@@ -409,18 +409,21 @@
  <section class="form-section" id="contact" aria-labelledby="form-title">
   <div class="form-card">
     
-    <!-- סרטון תדמית/שיווקי -->
-    <div style="margin-bottom: var(--space-6); text-align: center; width: 100%;">
-      <video 
-        controls 
-        playsinline 
-        preload="metadata"
-        style="width: 100%; max-width: 600px; height: auto; display: block; margin: 0 auto; border-radius: var(--radius-lg); box-shadow: var(--shadow-raised);"
-      >
-        <source src="assets/Marketing_video.mp4" type="video/mp4">
-        הדפדפן שלך אינו תומך בניגון וידאו.
-      </video>
-    </div>
+ <!-- סרטון תדמית/שיווקי -->
+<div style="margin-bottom: var(--space-6); text-align: center; width: 100%;">
+  <video 
+    controls 
+    playsinline 
+    preload="metadata"
+    style="width: 100%; max-width: 600px; aspect-ratio: 16 / 9; height: auto; display: block; margin: 0 auto; border-radius: var(--radius-lg); box-shadow: var(--shadow-raised); background-color: #000;"
+  >
+    <!-- נתיב יחסי מלא הכולל את התיקייה LandingPage -->
+    <source src="LandingPage/assets/Marketing_video.mp4" type="video/mp4">
+    <!-- נתיב גיבוי אם index.html נמצא בתוך LandingPage -->
+    <source src="assets/Marketing_video.mp4" type="video/mp4">
+    הדפדפן שלך אינו תומך בניגון וידאו.
+  </video>
+</div>
  </section> 
   <section class="form-section" id="contact" aria-labelledby="form-title">
     <div class="form-card">
