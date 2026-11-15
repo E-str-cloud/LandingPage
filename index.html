@@ -406,20 +406,26 @@
     </ol>
   </section>
 
-  <section class="form-section" id="contact" aria-labelledby="form-title">
+ <section class="form-section" id="contact" aria-labelledby="form-title">
   <div class="form-card">
+    
     <!-- סרטון תדמית/שיווקי -->
-    <div style="margin-bottom: var(--space-6); text-align: center;">
-      <video controls style="width: 100%; max-width: 600px; border-radius: var(--radius-lg); box-shadow: var(--shadow-raised);">
+    <div style="margin-bottom: var(--space-6); text-align: center; width: 100%;">
+      <video 
+        controls 
+        playsinline 
+        preload="metadata"
+        style="width: 100%; max-width: 600px; height: auto; display: block; margin: 0 auto; border-radius: var(--radius-lg); box-shadow: var(--shadow-raised);"
+      >
         <source src="assets/Marketing_video.mp4" type="video/mp4">
         הדפדפן שלך אינו תומך בניגון וידאו.
       </video>
     </div>
-    <h2 id="form-title">רוצים לנהל את חיפוש העבודה בצורה מסודרת</h2>
-    <p class="lead">משאירים שם ומייל, ונשלח אליכם עדכון על האפליקציה.</p>
-  </div>
-</section>
-
+ </section> 
+  <section class="form-section" id="contact" aria-labelledby="form-title">
+    <div class="form-card">
+      <h2 id="form-title">רוצים לנהל את חיפוש העבודה בצורה מסודרת</h2>
+      <p class="lead">משאירים שם ומייל, ונשלח אליכם עדכון על האפליקציה.</p>
       <form id="leadForm" novalidate>
         <div class="field">
           <label for="name">שם</label>
