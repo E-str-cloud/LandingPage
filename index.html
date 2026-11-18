@@ -220,6 +220,7 @@
   .step p { color: var(--muted); }
 
   /* Form */
+  .video-section { padding: var(--space-8) 0 0; }
   .form-section { padding: var(--space-8) 0 var(--space-9); }
   .form-card { background: var(--cream); border-radius: var(--radius-xl); padding: var(--space-7) var(--space-5); }
   .form-card h2 { font: var(--text-h2); }
@@ -406,10 +407,8 @@
     </ol>
   </section>
 
- <section class="form-section" id="contact" aria-labelledby="form-title">
-  <div class="form-card">
-    
- <!-- סרטון תדמית/שיווקי -->
+  <section class="video-section" id="video" aria-label="סרטון היכרות עם שלחתי">
+    <!-- סרטון תדמית/שיווקי -->
 <div style="margin-bottom: var(--space-6); text-align: center; width: 100%;">
   <video 
     controls 
@@ -417,14 +416,12 @@
     preload="metadata"
     style="width: 100%; max-width: 600px; aspect-ratio: 16 / 9; height: auto; display: block; margin: 0 auto; border-radius: var(--radius-lg); box-shadow: var(--shadow-raised); background-color: #000;"
   >
-    <!-- נתיב יחסי מלא הכולל את התיקייה LandingPage -->
-    <source src="LandingPage/assets/Marketing_video.mp4" type="video/mp4">
-    <!-- נתיב גיבוי אם index.html נמצא בתוך LandingPage -->
     <source src="assets/Marketing_video.mp4" type="video/mp4">
     הדפדפן שלך אינו תומך בניגון וידאו.
   </video>
 </div>
- </section> 
+  </section>
+
   <section class="form-section" id="contact" aria-labelledby="form-title">
     <div class="form-card">
       <h2 id="form-title">רוצים לנהל את חיפוש העבודה בצורה מסודרת</h2>
@@ -483,7 +480,6 @@
 
 <script>
   // כתובת לקבלת הפניות (לדוגמה Webhook של n8n). כל עוד היא ריקה, השליחה תיכשל ותוצג הודעת שגיאה.
-  const FORM_ENDPOINT = "https://hook.eu1.make.com/ylxdoqkeoqlyp7wfydx11yj6c5rkcs5p";
   const FORM_ENDPOINT = "https://hook.eu1.make.com/j6bdu3n1oyqxiak2rz39yw3h3esenc7g";
 
   const form = document.getElementById('leadForm');
